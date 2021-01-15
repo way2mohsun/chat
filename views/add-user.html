@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add User</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="jquery/jquery.js"></script>
+        <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="util/input-check.js"></script>
+        <link rel="stylesheet" href="css/login.css">
+        <script type="text/javascript">
+            $(document).on('click', '#del', function (e) {
+                $('#del-msg').val();
+                if (!validateEmail($('#del_email').val())) {
+                    $('#del-msg').text('You have entered an invalid email address!').css('color', 'red');
+                    return;
+                }
+                $.ajax({async: false, type: 'POST', url: "add",
+                    data: {functionality: 'delete user', email: $('#del_email').val()},
+                    success: function (data) {
+                        $('#del-msg').text(data).css('color', 'green');
+                        users();
+                    },
+                    error: function (xhr, textStatus, err) {
+                        $('#del-msg').text(xhr.responseText).css('color', 'red');
+                    }
+                });
+            });
+            $(document).on('click', '#register-form', function (e) {
+                $('#msg').val();
+                if (!validateEmail($('#reg_email').val())) {
+                    $('#msg').text('You have entered an invalid email address!').css('color', 'red');
+                    return false;
+                }
+                var file_data = $("#upload").prop("files")[0];
+                var form_data = new FormData();
+                form_data.append("file", file_data);
+                form_data.append("fname", $('#reg_firstname').val());
+                form_data.append("lname", $('#reg_lastname').val());
+                form_data.append("email", $('#reg_email').val());
+                form_data.append("password", $('#reg_password').val());
+                $.ajax({
+                    url: "add", dataType: 'script',
+                    cache: false, contentType: false, processData: false,
+                    data: form_data, type: 'post',
+                    success: function (data) {
+                        $('#upload').val('');
+                        $('#msg').text(data).css('color', 'green');
+                        users();
+                    },
+                    error: function (xhr, textStatus, err) {
+                        console.log(err);
+                        $('#msg').text(xhr.responseText).css('color', 'red');
+                    }
+                });
+            });
+            $(document).on('change', '#upload', function (e) {
+            });
+            $(document).ready(function () {
+                users();
+            });
+            function users() {
+                $('.table').remove();
+                $.ajax({async: false, type: 'POST', url: "add",
+                    data: {functionality: 'users'},
+                    success: function (data) {
+                        console.log(data);
+                        $('#user-list').append(data);
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="registration" class="text-center" style="padding:50px 0">
+            <!-- Main Form -->
+            <div class="login-form-1">
+                <div class="login-form-main-message"></div>
+                <div class="main-login-form">
+                    <div class="login-group">
+                        <div class="form-group">
+                            <label for="reg_email" class="sr-only">Email</label>
+                            <input type="text" class="form-control" id="reg_email" name="reg_email" placeholder="* email">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_password" class="sr-only">Password</label>
+                            <input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="* password">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_firstname" class="sr-only">First name</label>
+                            <input type="text" class="form-control" id="reg_firstname" name="reg_firstname" placeholder="* first name">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg_lastname" class="sr-only">Last Name</label>
+                            <input type="text" class="form-control" id="reg_lastname" name="reg_lastname" placeholder="last name">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="upload">Profile Image</label>
+                            <input type="file" name="upload" id="upload" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <br><label id="msg"></label>
+                        </div>
+                    </div>
+                    <button id="register-form" type="button" class="login-button"><i class="fa fa-chevron-right"></i></button><br>
+                </div>
+            </div>
+            <br>
+            <div class="login-form-1">
+                <div class="login-form-main-message"></div>
+                <div class="main-login-form">
+                    <div class="login-group">
+                        <div class="form-group">
+                            <label for="fp_email" class="sr-only">Email</label>
+                            <input type="text" class="form-control" id="del_email" name="del_email" placeholder="Delete user by email">
+                        </div>
+                    </div>
+                    <button type="button" class="login-button" id="del"><i class="fa fa-chevron-right"></i></button>
+                </div>
+                <br><label id="del-msg"></label>
+            </div>
+        </div>
+        <div id="user-list">
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+{
+    "name": "chat",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start-cluser": "NODE_DEBUG=cluster node bin\/www",
+        "start": "node app.js"
+    },
+    "ConnectionProperty": {
+        "host": "localhost",
+        "user": "root",
+        "password": "root",
+        "port": "3306",
+        "database": "chat",
+        "timezone": "utc"
+    }
+}

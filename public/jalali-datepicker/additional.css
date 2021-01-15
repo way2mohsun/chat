@@ -1,0 +1,38 @@
+    .icon-circle-arrow-right {
+        background-image: url(glyphicons-halflings.png);
+        background-position: -240px -144px;
+        background-repeat: no-repeat;
+        color: rgb(0, 136, 204);
+        cursor: pointer;
+        direction: rtl;
+        display: inline-block;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        height: 14px;
+        line-height: 14px;
+        margin-top: 1px;
+        text-align: center;
+        text-decoration: none;
+        text-shadow: rgba(255, 255, 255, 0.74902) 0px 1px 1px;
+        vertical-align: text-top;
+        width: 14px;
+    }
+    .icon-circle-arrow-left {
+        background-image: url(glyphicons-halflings.png);
+        background-position: -264px -144px;
+        background-repeat: no-repeat;
+        color: rgb(0, 136, 204);
+        cursor: pointer;
+        direction: rtl;
+        display: inline-block;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        height: 14px;
+        line-height: 14px;
+        margin-top: 1px;
+        text-align: center;
+        text-decoration: none;
+        text-shadow: rgba(255, 255, 255, 0.74902) 0px 1px 1px;
+        vertical-align: text-top;
+        width: 14px;
+    }
